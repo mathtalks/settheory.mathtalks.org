@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set Theory Talks</title>
+    <style>
+      .gmail_quote {
+        display: none;
+      }
+
+      .wrapper {
+        /*   display: grid; */
+        grid-template-columns: repeat(9, 10vw);
+        grid-gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
+      }
+
+      .entry:nth-of-type(2n) {
+        /*   background: lightgray; */
+      }
+
+      .entry__date {
+        grid-column: 1;
+      }
+
+      .entry__full {
+        grid-column: 4 / 6;
+        white-space: pre-wrap;
+        font-family: monospace;
+      }
+
+      .entry__heading {
+      }
+
+      .entry__seminar {
+        color: red;
+      }
+
+      .entry__date {
+        color: gray;
+      }
+
+      .entry__date::before {
+        content: 'Posted ';
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Set Theory Talks <br />
+      <small> Global set theory seminar and conference announcements</small>
+    </h1>
+
+    <script>
+      const json2html = entry => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('wrapper');
+        document.body.append(wrapper);
+
+        const div = document.createElement('div');
+        div.classList.add('entry');
+        const heading = document.createElement('h2');
+        heading.classList.add('entry__heading');
+        heading.innerHTML = entry[2];
+        wrapper.appendChild(heading);
+        const seminar = document.createElement('div');
+        seminar.classList.add('entry__seminar');
+        seminar.innerHTML = entry[1];
+        wrapper.appendChild(seminar);
+        const dateEl = document.createElement('div');
+        dateEl.classList.add('entry__date');
+        dateEl.innerHTML = entry[0];
+        wrapper.appendChild(dateEl);
+        const body = document.createElement('div');
+        body.classList.add('entry__full');
+        body.innerHTML = entry[3];
+        wrapper.appendChild(body);
+      };
+
+      const SOURCE =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGjzhmyqaGaXr0VrrgqPN98SN9lsbnqemQ2QDS-ILSce30ZPQb8AnmxiEX0piNaq88e3I6OTu1BOhC/pub?output=csv';
+
+      fetch(SOURCE)
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(csv) {
+          let json = Papa.parse(csv, { delimiter: ',' }).data;
+          // console.log(Object.keys(json));
+          // console.log(json, csv);
+          json.shift();
+          // console.log(json);
+          for (let key of Object.keys(json)) json2html(json[key]);
+        });
+    </script>
+  </body>
+</html>
