@@ -10,7 +10,7 @@
         display: none;
       }
 
-      .wrapper {
+      .entry {
         /*   display: grid; */
         grid-template-columns: repeat(9, 10vw);
         grid-gap: 10px;
@@ -57,7 +57,7 @@
     <script>
       const json2html = entry => {
         const wrapper = document.createElement('div');
-        wrapper.classList.add('wrapper');
+        wrapper.classList.add('entry');
         document.body.append(wrapper);
 
         const div = document.createElement('div');
