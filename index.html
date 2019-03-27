@@ -13,9 +13,16 @@
         display: none;
       }
 
+      * + * {
+        margin-top: 1em;
+      }
+
       .entry {
         margin: 0 auto;
         max-width: 42em;
+        border: 0.5vmin solid lightgray;
+        border-radius: 2%;
+        padding: 1em;
       }
 
       .entry__date {
@@ -25,6 +32,8 @@
       .entry__full {
         white-space: pre-wrap;
         font-family: monospace;
+        max-height: 50vh;
+        overflow-y: auto;
       }
 
       .entry__heading {
