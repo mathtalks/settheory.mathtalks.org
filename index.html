@@ -85,6 +85,12 @@
         body.classList.add('entry__full');
         body.innerHTML = entry[3];
         wrapper.appendChild(body);
+        if (entry[5] !== '') {
+          const url = document.createElement('div');
+          url.classList.add('entry__url');
+          url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Further Content</a>`;
+          wrapper.appendChild(url);
+        }
       };
 
       const SOURCE =
