@@ -61,6 +61,10 @@
         content: '\1F517 ';
       }
 
+      .entry__tags {
+        font-size: 0.8em;
+        color: gray;
+      }
     </style>
   </head>
   <body>
@@ -101,6 +105,12 @@
           url.classList.add('entry__url');
           url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Further Content</a>`;
           wrapper.appendChild(url);
+        }
+        if (entry[4] !== '') {
+          const tags = document.createElement('div');
+          tags.classList.add('entry__tags');
+          tags.innerHTML = 'Tags: ' + entry[4];
+          wrapper.appendChild(tag);
         }
       };
 
