@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set Theory Talks</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/cutestrap@1.3.1/dist/css/cutestrap.min.css"
+    />
+    <style>
+      .gmail_quote {
+        display: none;
+      }
+
+      * + * {
+        margin-top: 1em;
+      }
+
+      .entry {
+        margin: 1em auto;
+        max-width: 42em;
+        border: 0.5vmin solid lightgray;
+        border-radius: 2%;
+        padding: 1em;
+      }
+
+      .entry__date {
+        grid-column: 1;
+      }
+
+      .entry__full {
+        white-space: pre-wrap;
+        font-family: monospace;
+        max-height: 50vh;
+        overflow-y: auto;
+      }
+
+      .entry__heading {
+      }
+
+      .entry__seminar {
+        color: red;
+      }
+
+      .entry__date {
+        color: gray;
+      }
+
+      .entry__date::before {
+        content: 'Posted ';
+      }
+
+      .entry__url {
+        font-size: 0.8em;
+        background-color: lightgray;
+        width: max-content;
+      }
+
+      .entry__url__link::before {
+        content: '\1F517\ ';
+      }
+
+      .entry__tags {
+        font-size: 0.8em;
+        color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Set Theory Talks
+    </h1>
+    <p>Global set theory seminar and conference announcements</p>
+
+    <noscript>I'm sorry, Dave, I'm afraid I can't do that. <br> You must have disabled JavaScript in your browser because nothing could ever fail in my programming. <br> -- Hal</noscript>
+
+    <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
+    <script>
+      const json2html = entry => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('entry');
+        document.body.append(wrapper);
+
+        const div = document.createElement('div');
+        div.classList.add('entry');
+        const heading = document.createElement('h2');
+        heading.classList.add('entry__heading');
+        heading.innerHTML = entry[2];
+        wrapper.appendChild(heading);
+        const seminar = document.createElement('div');
+        seminar.classList.add('entry__seminar');
+        seminar.innerHTML = entry[1];
+        wrapper.appendChild(seminar);
+        const dateEl = document.createElement('div');
+        dateEl.classList.add('entry__date');
+        dateEl.innerHTML = entry[0];
+        wrapper.appendChild(dateEl);
+        const body = document.createElement('div');
+        body.classList.add('entry__full');
+        body.innerHTML = entry[3];
+        wrapper.appendChild(body);
+        if (entry[5] !== '') {
+          const url = document.createElement('div');
+          url.classList.add('entry__url');
+          url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Further Content</a>`;
+          wrapper.appendChild(url);
+        }
+        if (entry[4] !== '') {
+          const tags = document.createElement('div');
+          tags.classList.add('entry__tags');
+          tags.innerHTML = 'Tags: ' + entry[4];
+          wrapper.appendChild(tags);
+        }
+      };
+
+      const SOURCE =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPJYwRHJkAEJzKM2skmcyui9xvkMkX8ngX4EnNtgBnwmgpErUH3PqDMwxhT9fw4Jb6lucuCU16x5GK/pub?output=csv';
+
+      fetch(SOURCE)
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(csv) {
+          let json = Papa.parse(csv, { delimiter: ',' }).data;
+          // console.log(Object.keys(json));
+          // console.log(json, csv);
+          json.shift();
+          // console.log(json);
+          for (let key of Object.keys(json)) json2html(json[key]);
+        });
+    </script>
+  </body>
+</html>
