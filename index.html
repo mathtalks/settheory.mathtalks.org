@@ -103,13 +103,13 @@
         if (entry[5] !== '') {
           const url = document.createElement('div');
           url.classList.add('entry__url');
-          url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Further Content</a>`;
+          url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Link to more info</a>`;
           wrapper.appendChild(url);
         }
         if (entry[4] !== '') {
           const tags = document.createElement('div');
           tags.classList.add('entry__tags');
-          tags.innerHTML = 'Tags: ' + entry[4];
+          tags.innerHTML = 'Tagged: ' + entry[4];
           wrapper.appendChild(tags);
         }
       };
