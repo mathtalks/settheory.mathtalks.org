@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Set Theory Talks</title>
+    <meta name="description" content="Global set theory seminar and conference announcements">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/cutestrap@1.3.1/dist/css/cutestrap.min.css"
@@ -17,7 +18,7 @@
         margin-top: 1em;
       }
 
-      .entry {
+      .post {
         margin: 1em auto;
         max-width: 42em;
         border: 0.5vmin solid lightgray;
@@ -25,43 +26,40 @@
         padding: 1em;
       }
 
-      .entry__date {
+      .post__date {
         grid-column: 1;
+        color: gray;
       }
       
-      .entry__full {
+      .post__date::before {
+        content: 'Posted ';
+      }
+      
+      .post__body {
         white-space: pre-wrap;
         font-family: monospace;
         max-height: 50vh;
         overflow-y: auto;
       }
 
-      .entry__heading {
+      .post__title {
       }
 
-      .entry__seminar {
+      .post__seminar {
         color: red;
       }
 
-      .entry__date {
-        color: gray;
-      }
-
-      .entry__date::before {
-        content: 'Posted ';
-      }
-
-      .entry__url {
+      .post__url {
         font-size: 0.8em;
         background-color: lightgray;
         width: max-content;
       }
 
-      .entry__url__link::before {
+      .post__url__link::before {
         content: '\1F517\ ';
       }
 
-      .entry__tags {
+      .post__tags {
         font-size: 0.8em;
         color: gray;
       }
@@ -75,43 +73,46 @@
     <!-- <p><a class="btn btn--secondary" href="/">Seminars</a> <a class="btn btn--secondary" href="/conferences/">Conferences</a></p> -->
 
     <noscript>I'm sorry, Dave, I'm afraid I can't do that. <br> You must have disabled JavaScript in your browser because nothing could ever fail in my programming. <br> -- Hal</noscript>
-
+    
     <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
     <script>
-      const json2html = entry => {
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('entry');
-        document.body.append(wrapper);
+      const json2post = item => {
+        const post = document.createElement('div');
+        post.classList.add('post');
+        document.body.append(post);
 
-        const div = document.createElement('div');
-        div.classList.add('entry');
-        const heading = document.createElement('h2');
-        heading.classList.add('entry__heading');
-        heading.innerHTML = entry[2];
-        wrapper.appendChild(heading);
+        const posttitle = document.createElement('h2');
+        posttitle.classList.add('post__title');
+        posttitle.innerHTML = item[2];
+        post.appendChild(posttitle);
+        
         const seminar = document.createElement('div');
-        seminar.classList.add('entry__seminar');
-        seminar.innerHTML = entry[1];
-        wrapper.appendChild(seminar);
-        const dateEl = document.createElement('div');
-        dateEl.classList.add('entry__date');
-        dateEl.innerHTML = entry[0];
-        wrapper.appendChild(dateEl);
-        const body = document.createElement('div');
-        body.classList.add('entry__full');
-        body.innerHTML = entry[3];
-        wrapper.appendChild(body);
-        if (entry[5] !== '') {
+        seminar.classList.add('post__seminar');
+        seminar.innerHTML = item[1];
+        post.appendChild(seminar);
+        
+        const postdate = document.createElement('div');
+        postdate.classList.add('post__date');
+        postdate.innerHTML = item[0];
+        post.appendChild(postdate);
+        
+        const postbody = document.createElement('div');
+        postbody.classList.add('post__body');
+        postbody.innerHTML = item[3];
+        post.appendChild(postbody);
+        
+        if (item[5] !== '') {
           const url = document.createElement('div');
-          url.classList.add('entry__url');
-          url.innerHTML = `<a class="entry__url__link" href="${entry[5]}">Link to more info</a>`;
-          wrapper.appendChild(url);
+          url.classList.add('post__url');
+          url.innerHTML = `<a class="post__url__link" href="${item[5]}">Link to more info</a>`;
+          post.appendChild(url);
         }
-        if (entry[4] !== '') {
+        
+        if (item[4] !== '') {
           const tags = document.createElement('div');
-          tags.classList.add('entry__tags');
-          tags.innerHTML = 'Tagged: ' + entry[4];
-          wrapper.appendChild(tags);
+          tags.classList.add('post__tags');
+          tags.innerHTML = 'Tagged: ' + item[4];
+          post.appendChild(tags);
         }
       };
 
@@ -128,7 +129,9 @@
           // console.log(json, csv);
           json.shift();
           // console.log(json);
-          for (let key of Object.keys(json)) json2html(json[key]);
+          for (let key of Object.keys(json)) {
+            json2post(json[key]);
+          }
         });
     </script>
   </body>
