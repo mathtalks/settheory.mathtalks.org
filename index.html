@@ -17,10 +17,23 @@
       * + * {
         margin-top: 1em;
       }
+      
+      #posts {
+        float: left;
+      }
+      
+      #conferences {
+        float: right;
+        max-width: 10em;
+      }
+      
+      #conferences a {
+        display: block;
+      }
 
       .post {
         margin: 1em auto;
-        max-width: 42em;
+        max-width: 35em;
         border: 0.5vmin solid lightgray;
         border-radius: 2%;
         padding: 1em;
@@ -66,11 +79,17 @@
     </style>
   </head>
   <body>
-    <h1>
-      Set Theory Talks
-    </h1>
-    <p>Global set theory seminar and conference announcements</p>
-    <!-- <p><a class="btn btn--secondary" href="/">Seminars</a> <a class="btn btn--secondary" href="/conferences/">Conferences</a></p> -->
+    <header>
+      <h1>Set Theory Talks</h1>
+      <p>Global set theory seminar and conference announcements</p>
+    </header>
+
+    <div id="posts">
+    </div>
+    
+    <aside id="conferences">
+      <p>Upcoming conferences:</p>
+    </aside>
 
     <noscript>I'm sorry, Dave, I'm afraid I can't do that. <br> You must have disabled JavaScript in your browser because nothing could ever fail in my programming. <br> -- Hal</noscript>
     
@@ -78,8 +97,10 @@
     <script>
       const json2post = item => {
         const post = document.createElement('div');
+        const id = `${item[0]}${item[2]}`.hashCode();
+        post.id = id;
         post.classList.add('post');
-        document.body.append(post);
+        document.getElementById("posts").append(post);
 
         const posttitle = document.createElement('h2');
         posttitle.classList.add('post__title');
@@ -115,6 +136,31 @@
           post.appendChild(tags);
         }
       };
+      
+      const json2conf = item => {
+        if (item[6]) {
+          eventdate = new Date(item[6]);
+          today = new Date();
+          if (eventdate >= today) {
+            const a = document.createElement('a');
+            a.innerHTML = item[2];
+            const id = `${item[0]}${item[2]}`.hashCode();
+            a.href = '#' + id;
+            document.getElementById('conferences').append(a);
+          }
+        }
+      };
+      
+      String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+          chr   = this.charCodeAt(i);
+          hash  = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+      };
 
       const SOURCE =
         'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGjzhmyqaGaXr0VrrgqPN98SN9lsbnqemQ2QDS-ILSce30ZPQb8AnmxiEX0piNaq88e3I6OTu1BOhC/pub?output=csv';
@@ -131,6 +177,7 @@
           // console.log(json);
           for (let key of Object.keys(json)) {
             json2post(json[key]);
+            json2conf(json[key]);
           }
         });
     </script>
