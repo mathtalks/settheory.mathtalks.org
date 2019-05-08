@@ -66,13 +66,18 @@
       }
 
       .post__seminar {
-        color: red;
+        background-color: #59c072;
+        border-radius: .5em;
+        padding: 0 .5em;
+        width: max-content;
       }
 
       .post__url {
         font-size: 0.8em;
         background-color: lightgray;
         width: max-content;
+        border-radius: 0.5em;
+        padding: 0 0.5em;
       }
 
       .post__url__link::before {
@@ -165,7 +170,7 @@
         if (item[4] !== '') {
           const tags = document.createElement('div');
           tags.classList.add('post__tags');
-          tags.innerHTML = 'Tagged: ' + item[4];
+          tags.innerHTML = 'Tagged: ' + item[4].replace(/,/g, ', ');
           post.appendChild(tags);
         }
       };
