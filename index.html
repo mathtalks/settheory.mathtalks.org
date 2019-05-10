@@ -102,9 +102,22 @@
         grid-gap: 2em;
         grid-auto-flow: row;
       }
+
+      .filter, #conferences {
+          grid-area: auto;
+        }
+
       @media (min-width: 500px) {
         .wrapper--main{
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
+        }
+
+        .filter {
+          grid-area: 1/2/1/2;
+        }
+        #conferences {
+          grid-area: 1/2/1/2;
+          padding-top: 4em;
         }
       }
     </style>
@@ -115,7 +128,28 @@
       <p>Global set theory seminar and conference announcements</p>
     </header>
     <div class="wrapper wrapper--main">
-      <main id="posts"></main>
+        <div class="filter">
+            <label for="venues">Filter by:</label>
+            <select id="venues">
+                <option value="All">All</option>
+                <option value="NUS Logic Seminar">NUS Logic Seminar</option>
+                <option value="Conference">Conference</option>
+                <option value="This Week in Logic at CUNY">This Week in Logic at CUNY</option>
+                <option value="Toronto Set Theory Seminar">Toronto Set Theory Seminar</option>
+                <option value="Bristol Logic Seminar">Bristol Logic Seminar</option>
+                <option value="Kurt Godel Research Center">Kurt Godel Research Center</option>
+                <option value="Prague Set Theory Seminar">Prague Set Theory Seminar</option>
+                <option value="Barcelona Set Theory Seminar">Barcelona Set Theory Seminar</option>
+                <option value="University of Vienna Mathematics Colloquium">University of Vienna Mathematics Colloquium</option>
+                <option value="Wrocław University of Technology">Wrocław University of Technology</option>
+                <option value="Carnegie Mellon Logic Seminar">Carnegie Mellon Logic Seminar</option>
+                <option value="Israeli Logic Talks">Israeli Logic Talks</option>
+                <option value="Bonn Logic Seminar">Bonn Logic Seminar</option>
+                <option value="Michigan Logic Seminar">Michigan Logic Seminar</option>
+                <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
+              </select>
+          </div>
+          <main id="posts"></main>
       <aside id="conferences">
         <h2>Upcoming conferences</h2>
       </aside>
@@ -229,6 +263,14 @@
       // source for 2017 items
       // const OLDSOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3Bc8ejCq-PMUtRwBgxLHDZUOS8nTcm6S_bdo_wojdh1LcsQaU92Ey4KEbX5c_GwltOmD2Dypix4w1/pub?output=csv';
         // OLDSOURCE
+
+      const select = document.getElementById('venues');
+      select.addEventListener('change', () => {
+        console.log(select.value);
+        document.querySelectorAll('.post').forEach( node => {
+          if (select.value === 'All' || select.value === node.getAttribute('data-venue')) node.removeAttribute('hidden')
+          else node.setAttribute('hidden','')
+      })});
     </script>
   </body>
 </html>
