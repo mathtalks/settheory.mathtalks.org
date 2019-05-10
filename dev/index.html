@@ -8,7 +8,6 @@
       name="description"
       content="Global set theory seminar and conference announcements"
     />
-    <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
     <style>
     /*!
     normalize.css v^3.0 | MIT License | git.io/normalize
@@ -108,30 +107,6 @@
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
         }
       }
-
-      [value="All"]:checked ~ .wrapper--main [data-venue] {
-        display: block;
-      }
-
-      [value="IMPAN"]:checked ~ .wrapper--main .post:not([data-venue~="IMPAN"]),
-      [value="NUS"]:checked ~ .wrapper--main .post:not([data-venue~="NUS"]),
-      [value="CUNY"]:checked ~ .wrapper--main .post:not([data-venue~="CUNY"]),
-      [value="Toronto"]:checked ~ .wrapper--main .post:not([data-venue~="Toronto"]),
-      [value="Bristol"]:checked ~ .wrapper--main .post:not([data-venue~="Bristol"]),
-      [value="Kurt"]:checked ~ .wrapper--main .post:not([data-venue~="Kurt"]),
-      [value="Prague"]:checked ~ .wrapper--main .post:not([data-venue~="Prague"]),
-      [value="Barcelona"]:checked ~ .wrapper--main .post:not([data-venue~="Barcelona"]),
-      [value="Vienna"]:checked ~ .wrapper--main .post:not([data-venue~="Vienna"]),
-      [value="Wrocław"]:checked ~ .wrapper--main .post:not([data-venue~="Wrocław"]),
-      [value="Carnegie"]:checked ~ .wrapper--main .post:not([data-venue~="Carnegie"]),
-      [value="Israeli"]:checked ~ .wrapper--main .post:not([data-venue~="Israeli"]),
-      [value="Bonn"]:checked ~ .wrapper--main .post:not([data-venue~="Bonn"]),
-      [value="Michigan"]:checked ~ .wrapper--main .post:not([data-venue~="Michigan"]),
-      [value="Irvine"]:checked ~ .wrapper--main .post:not([data-venue~="Irvine"]),
-      [value="Conference"]:checked ~ .wrapper--main .post:not([data-venue~="Conference"]) {
-        display: none;
-      }
-
     </style>
   </head>
   <body>
@@ -139,65 +114,32 @@
       <h1>Set Theory Talks</h1>
       <p>Global set theory seminar and conference announcements</p>
     </header>
-    <div class="wrapper">
-        <p>Filter by:</p>
-        <input type="radio" id="All" name="categories" value="All" checked>
-        <label for="All">All</label><br>
-        <input type="radio" id="IMPAN" name="categories" value="IMPAN">
-        <label for="IMPAN">IMPAN Working Group in Applications of Set Theory</label><br>
-        <input type="radio" id="NUS" name="categories" value="NUS">
-        <label for="NUS">NUS Logic Seminar</label><br>
-        <input type="radio" id="CUNY" name="categories" value="CUNY">
-        <label for="CUNY">This Week in Logic at CUNY</label><br>
-        <input type="radio" id="Toronto" name="categories" value="Toronto">
-        <label for="Toronto">Toronto Set Theory Seminar</label><br>
-        <input type="radio" id="Bristol" name="categories" value="Bristol">
-        <label for="Bristol">Bristol Logic Seminar</label><br>
-        <input type="radio" id="Conference" name="categories" value="Conference">
-        <label for="Conference">Conference</label><br>
-        <input type="radio" id="Kurt" name="categories" value="Kurt">
-        <label for="Kurt">Kurt Godel Research Center</label><br>
-        <input type="radio" id="Prague" name="categories" value="Prague">
-        <label for="Prague">Prague</label><br>
-        <input type="radio" id="Barcelona" name="categories" value="Barcelona">
-        <label for="Barcelona">Barcelona Set Theory Seminar</label><br>
-        <input type="radio" id="Vienna" name="categories" value="Vienna">
-        <label for="Vienna">Vienna</label><br>
-        <input type="radio" id="Wrocław" name="categories" value="Wrocław">
-        <label for="Wrocław">Wrocław University of Technology</label><br>
-        <input type="radio" id="Carnegie" name="categories" value="Carnegie">
-        <label for="Carnegie">Carnegie</label><br>
-        <input type="radio" id="Israeli" name="categories" value="Israeli">
-        <label for="Israeli">Israeli</label><br>
-        <input type="radio" id="Bonn" name="categories" value="Bonn">
-        <label for="Bonn">Bonn</label><br>
-        <input type="radio" id="Michigan" name="categories" value="Michigan">
-        <label for="Michigan">Michigan</label><br>
-        <input type="radio" id="Irvine" name="categories" value="Irvine">
-        <label for="Irvine">Irvine</label><br>
-
-        <!-- "IMPAN Working Group in Applications of Set Theory",
-          "NUS Logic Seminar",
-          "This Week in Logic at CUNY",
-           "Toronto Set Theory Seminar",
-           "Bristol Logic Seminar",
-           "Conference",
-           "Kurt Godel Research Center",
-           "Prague Set Theory Seminar",
-           "Barcelona Set Theory Seminar",
-           "University of Vienna Mathematics Colloquium",
-            "Wrocław University of Technology",
-            "Carnegie Mellon Logic Seminar",
-            "Israeli Logic Talks",
-            "Bonn Logic Seminar",
-            "Michigan Logic Seminar",
-            "UC Irvine Set Theory Seminar" -->
-      <div class="wrapper--main">
-        <main id="posts" style="grid-column-start: 1"></main>
-        <aside id="conferences">
-          <h2>Upcoming conferences</h2>
-        </aside>
+    <div>
+        <label for="venues">Filter by:</label>
+        <select id="venues">
+            <option value="All">All</option>
+            <option value="NUS Logic Seminar">NUS Logic Seminar</option>
+            <option value="Conference">Conference</option>
+            <option value="This Week in Logic at CUNY">This Week in Logic at CUNY</option>
+            <option value="Toronto Set Theory Seminar">Toronto Set Theory Seminar</option>
+            <option value="Bristol Logic Seminar">Bristol Logic Seminar</option>
+            <option value="Kurt Godel Research Center">Kurt Godel Research Center</option>
+            <option value="Prague Set Theory Seminar">Prague Set Theory Seminar</option>
+            <option value="Barcelona Set Theory Seminar">Barcelona Set Theory Seminar</option>
+            <option value="University of Vienna Mathematics Colloquium">University of Vienna Mathematics Colloquium</option>
+            <option value="Wrocław University of Technology">Wrocław University of Technology</option>
+            <option value="Carnegie Mellon Logic Seminar">Carnegie Mellon Logic Seminar</option>
+            <option value="Israeli Logic Talks">Israeli Logic Talks</option>
+            <option value="Bonn Logic Seminar">Bonn Logic Seminar</option>
+            <option value="Michigan Logic Seminar">Michigan Logic Seminar</option>
+            <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
+          </select>
       </div>
+    <div class="wrapper wrapper--main">
+      <main id="posts"></main>
+      <aside id="conferences">
+        <h2>Upcoming conferences</h2>
+      </aside>
     </div>
 
     <noscript
@@ -207,6 +149,7 @@
       -- Hal
     </noscript>
 
+    <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
     <script>
       const json2post = item => {
         const post = document.createElement('div');
@@ -298,27 +241,23 @@
             json2conf(json[key]);
           }
         });
-//         fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
-//         .then(function(response) {
-//           return response.json();
-//         })
-//         .then( (json) => {
-//           console.log(json);
-//           json.feed.entry.forEach( entry => {
-// // gsx$announcedatewritetodaysdateandoptionallytimeinanyvalidformat: {$t: "5/8/2019 16:09:24"}
-// // gsx$conferencestartdateuseonlyonceperconference: {$t: "05/20/2019"}
-// // gsx$importiddeveloperuseonly: {$t: ""}
-// // gsx$linkurl: {$t: ""}
-// // gsx$postcontentusectrlenterformultipleparagraphs: {$t: "Dear all,↵↵The seminar meets on Wednesday May 15th… Stationary Sets↵Abstract attached.↵↵Best,↵David↵"}
-// // gsx$posttitleforseminarsusenametitle: {$t: "Mexwell Levine: Partitions of Reflecting Stationary Sets"}
-// // gsx$seminarnameifconferencesimplywriteconference: {$t: "Prague Set Theory Seminar"}
-// // gsx$speakernameusecommastoseparatemultiplespeakers: {$t: "Maxwell Levine"}
-//           })
-//           });
+        // fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
+        // .then(function(response) {
+        //   return response.json();
+        // })
+        // .then( (j) => console.log(j));
 
       // source for 2017 items
       // const OLDSOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3Bc8ejCq-PMUtRwBgxLHDZUOS8nTcm6S_bdo_wojdh1LcsQaU92Ey4KEbX5c_GwltOmD2Dypix4w1/pub?output=csv';
         // OLDSOURCE
+
+      const select = document.getElementById('venues');
+      select.addEventListener('change', () => {
+        console.log(select.value);
+        document.querySelectorAll('.post').forEach( node => {
+          if (select.value === 'All' || select.value === node.getAttribute('data-venue')) node.removeAttribute('hidden')
+          else node.setAttribute('hidden','')
+      })});
     </script>
   </body>
 </html>
