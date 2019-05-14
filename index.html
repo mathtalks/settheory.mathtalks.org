@@ -240,12 +240,10 @@
             a.innerHTML = item[2];
             const id = `${item[0]}${item[2]}`.hashCode();
             a.href = '#' + id;
+            a.setAttribute('data-startdate',eventdate.toISOString().substring(0,10));
             document.getElementById('conferences').append(a);
           }
         }
-      };
-
-      const json2conf = item => {
       };
 
       String.prototype.hashCode = function() {
@@ -276,17 +274,22 @@
           for (let key of Object.keys(json)) {
             json2post(json[key]);
           }
-          // SORT CONFERENCES
+          const conferences_wrapper = document.getElementById("conferences");
+          const conferences = [...conferences_wrapper.querySelectorAll('a')];
+          conferences.sort((a,b) => a.getAttribute('data-startdate') > b.getAttribute('data-startdate'));
+          conferences.forEach(item => conferences_wrapper.appendChild(item));
+          ;
         });
-        // fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
-        // .then(function(response) {
-        //   return response.json();
-        // })
-        // .then( (j) => console.log(j));
+
+      // JSON LINK
+      // fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
+      // .then(function(response) {
+      //   return response.json();
+      // })
+      // .then( (j) => console.log(j));
 
       // source for 2017 items
       // const OLDSOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3Bc8ejCq-PMUtRwBgxLHDZUOS8nTcm6S_bdo_wojdh1LcsQaU92Ey4KEbX5c_GwltOmD2Dypix4w1/pub?output=csv';
-        // OLDSOURCE
 
       const select = document.getElementById('venues');
       select.addEventListener('change', () => {
