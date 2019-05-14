@@ -231,12 +231,10 @@
           tags.innerHTML = 'Tagged: ' + item[4].replace(/,/g, ', ');
           post.appendChild(tags);
         }
-      };
-
-      const json2conf = item => {
+        
         if (item[6]) {
-          eventdate = new Date(item[6]);
-          today = new Date();
+          const eventdate = new Date(item[6]);
+          const today = new Date();
           if (eventdate >= today) {
             const a = document.createElement('a');
             a.innerHTML = item[2];
@@ -245,6 +243,9 @@
             document.getElementById('conferences').append(a);
           }
         }
+      };
+
+      const json2conf = item => {
       };
 
       String.prototype.hashCode = function() {
@@ -274,8 +275,8 @@
           // console.log(json);
           for (let key of Object.keys(json)) {
             json2post(json[key]);
-            json2conf(json[key]);
           }
+          // SORT CONFERENCES
         });
         // fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
         // .then(function(response) {
