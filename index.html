@@ -39,7 +39,7 @@
       #conferences a {
         display: block;
       }
-
+      
       .post {
         margin: 1em auto;
         max-width: 35em;
@@ -131,7 +131,7 @@
         }
         #conferences {
           grid-area: 1/2/1/2;
-          padding-top: 4em;
+          padding-top: 3em;
         }
       }
     </style>
@@ -140,32 +140,36 @@
     <header class="wrapper">
       <h1>Set Theory Talks</h1>
       <p>Global set theory seminar and conference announcements</p>
+      <p><a href="/">Home</a> | <a href="/about.html">About</a></p>
     </header>
     <div class="wrapper wrapper--main">
-        <div class="filter">
-            <label for="venues">Filter by:</label>
-            <select id="venues">
-                <option value="All">All</option>
-                <option value="NUS Logic Seminar">NUS Logic Seminar</option>
-                <option value="Conference">Conference</option>
-                <option value="This Week in Logic at CUNY">This Week in Logic at CUNY</option>
-                <option value="Toronto Set Theory Seminar">Toronto Set Theory Seminar</option>
-                <option value="Bristol Logic Seminar">Bristol Logic Seminar</option>
-                <option value="Kurt Godel Research Center">Kurt Godel Research Center</option>
-                <option value="Prague Set Theory Seminar">Prague Set Theory Seminar</option>
-                <option value="Barcelona Set Theory Seminar">Barcelona Set Theory Seminar</option>
-                <option value="University of Vienna Mathematics Colloquium">University of Vienna Mathematics Colloquium</option>
-                <option value="Wrocław University of Technology">Wrocław University of Technology</option>
-                <option value="Carnegie Mellon Logic Seminar">Carnegie Mellon Logic Seminar</option>
-                <option value="Israeli Logic Talks">Israeli Logic Talks</option>
-                <option value="Bonn Logic Seminar">Bonn Logic Seminar</option>
-                <option value="Michigan Logic Seminar">Michigan Logic Seminar</option>
-                <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
-              </select>
-          </div>
-          <main id="posts"></main>
+      <div class="filter">
+        <label for="venues">Filter by:</label>
+        <select id="venues">
+          <option value="All">All</option>
+          <option value="NUS Logic Seminar">NUS Logic Seminar</option>
+          <option value="Conference">Conference</option>
+          <option value="This Week in Logic at CUNY">This Week in Logic at CUNY</option>
+          <option value="Toronto Set Theory Seminar">Toronto Set Theory Seminar</option>
+          <option value="Bristol Logic Seminar">Bristol Logic Seminar</option>
+          <option value="Kurt Godel Research Center">Kurt Godel Research Center</option>
+          <option value="Prague Set Theory Seminar">Prague Set Theory Seminar</option>
+          <option value="Barcelona Set Theory Seminar">Barcelona Set Theory Seminar</option>
+          <option value="University of Vienna Mathematics Colloquium">University of Vienna Mathematics Colloquium</option>
+          <option value="Wrocław University of Technology">Wrocław University of Technology</option>
+          <option value="Carnegie Mellon Logic Seminar">Carnegie Mellon Logic Seminar</option>
+          <option value="Israeli Logic Talks">Israeli Logic Talks</option>
+          <option value="Bonn Logic Seminar">Bonn Logic Seminar</option>
+          <option value="Michigan Logic Seminar">Michigan Logic Seminar</option>
+          <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
+        </select>
+      </div>
+      <main id="posts">
+
+      </main>
       <aside id="conferences">
         <h2>Upcoming conferences</h2>
+
       </aside>
     </div>
 
@@ -207,11 +211,11 @@
         postbody.innerHTML = item[3];
         post.appendChild(postbody);
 
-        if (item[5] !== '') {
+        if (item[6] !== '') {
           const url = document.createElement('div');
           url.classList.add('post__url');
           url.innerHTML = `<a class="post__url__link" href="${
-            item[5]
+            item[6]
           }">Link to more info</a>`;
           post.appendChild(url);
         }
@@ -232,15 +236,15 @@
           post.appendChild(tags);
         }
         
-        if (item[6]) {
-          const eventdate = new Date(item[6]);
+        if (item[5]) {
+          const eventdate = new Date(item[5]);
           const today = new Date();
           if (eventdate >= today) {
             const a = document.createElement('a');
             a.innerHTML = item[2];
             const id = `${item[0]}${item[2]}`.hashCode();
             a.href = '#' + id;
-            a.setAttribute('data-startdate',eventdate.toISOString().substring(0,10));
+            a.setAttribute('data-startdate', eventdate.toISOString().substring(0,10));
             document.getElementById('conferences').append(a);
           }
         }
