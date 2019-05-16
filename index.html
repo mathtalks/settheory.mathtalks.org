@@ -214,18 +214,26 @@
         if (item[6] !== '') {
           const url = document.createElement('div');
           url.classList.add('post__url');
-          url.innerHTML = `<a class="post__url__link" href="${
-            item[6]
-          }">Link to more info</a>`;
+          const a = document.createElement('a');
+          a.classList.add("post__url__link");
+          a.href = item[6];
+          a.innerHTML = "Link to more info";
+          url.appendChild(a);
           post.appendChild(url);
         }
         
         if (item[7] !== '') {
           const attachment = document.createElement('div');
           attachment.classList.add('post__attachment');
-          attachment.innerHTML = `<a class="post__attachment__link" href="${
-            item[7]
-          }">Attachments</a>`;
+          const a = document.createElement('a');
+          a.classList.add("post__attachment__link");
+          a.href = item[7];
+          if (item[7].includes("folder")) {
+            a.innerHTML = "View attachments";
+          } else {
+            a.innerHTML = "View attachment";
+          }
+          attachment.appendChild(a);
           post.appendChild(attachment);
         }
 
