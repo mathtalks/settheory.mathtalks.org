@@ -36,10 +36,10 @@
         padding: 0 1em;
       }
 
-      #conferences a {
+      .conferences a {
         display: block;
       }
-      
+
       .post {
         margin: 1em auto;
         max-width: 35em;
@@ -86,7 +86,7 @@
       .post__url__link::before {
         content: '\1F517\ ';
       }
-      
+
       .post__attachment {
         font-size: 0.8em;
         background-color: lightgray;
@@ -94,7 +94,7 @@
         border-radius: 0.5em;
         padding: 0 0.5em;
       }
-      
+
       .post__attachment__link::before {
         content: '\1F4CE\ ';
       }
@@ -113,25 +113,29 @@
         padding-top: 0;
         display: grid;
         grid-template-columns: minmax(100%, 1fr);
+        grid-template-rows: minmax(0, max-content);
         grid-gap: 2em;
         grid-auto-flow: row;
       }
 
-      .filter, #conferences {
+      .filter, .conferences {
           grid-area: auto;
         }
 
       @media (min-width: 500px) {
-        .wrapper--main{
+        .wrapper--main {
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
+        }
+
+        .posts {
+          grid-area: 1/1/3/1;
         }
 
         .filter {
           grid-area: 1/2/1/2;
         }
-        #conferences {
-          grid-area: 1/2/1/2;
-          padding-top: 3em;
+        .conferences {
+          grid-area: 2/2/2/2;
         }
       }
     </style>
@@ -164,10 +168,10 @@
           <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
         </select>
       </div>
-      <main id="posts">
+      <main id="posts" class="posts">
 
       </main>
-      <aside id="conferences">
+      <aside id="conferences" class="conferences">
         <h2>Upcoming conferences</h2>
 
       </aside>
@@ -221,7 +225,7 @@
           url.appendChild(a);
           post.appendChild(url);
         }
-        
+
         if (item[7] !== '') {
           const attachment = document.createElement('div');
           attachment.classList.add('post__attachment');
@@ -243,7 +247,7 @@
           tags.innerHTML = 'Tagged: ' + item[4].replace(/,/g, ', ');
           post.appendChild(tags);
         }
-        
+
         if (item[5]) {
           const eventdate = new Date(item[5]);
           const today = new Date();
