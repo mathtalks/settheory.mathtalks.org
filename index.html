@@ -127,9 +127,21 @@
         padding: 0;
       }
 
+      nav {
+        text-align: left;
+      }
+
+      nav a+a:before {
+        content: ' | ';
+      }
+
       @media (min-width: 500px) {
         .wrapper--main {
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
+        }
+
+        .screen--small {
+          display: none;
         }
       }
     </style>
@@ -139,7 +151,7 @@
       <header class="header">
         <h1>Set Theory Talks</h1>
         <p>Global set theory seminar and conference announcements</p>
-        <p><a href="/">Home</a> | <a href="/about.html">About</a></p>
+        <nav><a href="/">Home</a> <a href="/about.html">About</a> <a class="screen--small" href="#conferences">Upcoming Conferences</a></nav>
       </header>
         <div class="filter">
         <label for="venues">Filter by venue</label>
