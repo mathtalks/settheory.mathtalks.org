@@ -36,10 +36,10 @@
         padding: 0 1em;
       }
 
-      #conferences a {
+      .conferences a {
         display: block;
       }
-      
+
       .post {
         margin: 1em auto;
         max-width: 35em;
@@ -86,7 +86,7 @@
       .post__url__link::before {
         content: '\1F517\ ';
       }
-      
+
       .post__attachment {
         font-size: 0.8em;
         background-color: lightgray;
@@ -94,7 +94,7 @@
         border-radius: 0.5em;
         padding: 0 0.5em;
       }
-      
+
       .post__attachment__link::before {
         content: '\1F4CE\ ';
       }
@@ -107,43 +107,55 @@
       .wrapper {
         max-width: 960px;
         margin: 0 auto;
+        padding: 0;
       }
 
       .wrapper--main {
         padding-top: 0;
         display: grid;
         grid-template-columns: minmax(100%, 1fr);
+        grid-template-rows: minmax(0, max-content);
         grid-gap: 2em;
         grid-auto-flow: row;
       }
 
-      .filter, #conferences {
+      .filter, .conferences {
           grid-area: auto;
-        }
+      }
+
+      .header {
+        padding: 0;
+      }
+
+      nav {
+        text-align: left;
+      }
+
+      nav a+a:before {
+        content: ' | ';
+      }
 
       @media (min-width: 500px) {
-        .wrapper--main{
+        .wrapper--main {
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
         }
 
-        .filter {
-          grid-area: 1/2/1/2;
-        }
-        #conferences {
-          grid-area: 1/2/1/2;
-          padding-top: 3em;
+        .screen--small {
+          display: none;
         }
       }
     </style>
   </head>
   <body>
-    <header class="wrapper">
-      <h1>Set Theory Talks</h1>
-      <p>Global set theory seminar and conference announcements</p>
-      <p><a href="/">Home</a> | <a href="/about.html">About</a></p>
-    </header>
     <div class="wrapper wrapper--main">
-      <main >
+      <header class="header">
+        <h1>Set Theory Talks</h1>
+        <p>Global set theory seminar and conference announcements</p>
+        <nav><a href="/">Home</a> <a href="/about.html">About</a></nav>
+      </header>
+      <div class="filter">
+      </div>
+      <main id="posts" class="posts">
         <h2>Welcome!</h2>
         <p>This site features set theory seminar and conference announcements from around the world. The site isi maintained by Peter Krautzberger and Sam Coskey.</p>
         <h2>How to post to the site</h2>
