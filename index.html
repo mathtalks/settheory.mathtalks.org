@@ -157,21 +157,6 @@
         <label for="venues">Filter by venue</label>
         <select id="venues">
           <option value="All">All</option>
-          <option value="NUS Logic Seminar">NUS Logic Seminar</option>
-          <option value="Conference">Conference</option>
-          <option value="This Week in Logic at CUNY">This Week in Logic at CUNY</option>
-          <option value="Toronto Set Theory Seminar">Toronto Set Theory Seminar</option>
-          <option value="Bristol Logic Seminar">Bristol Logic Seminar</option>
-          <option value="Kurt Godel Research Center">Kurt Godel Research Center</option>
-          <option value="Prague Set Theory Seminar">Prague Set Theory Seminar</option>
-          <option value="Barcelona Set Theory Seminar">Barcelona Set Theory Seminar</option>
-          <option value="University of Vienna Mathematics Colloquium">University of Vienna Mathematics Colloquium</option>
-          <option value="Wrocław University of Technology">Wrocław University of Technology</option>
-          <option value="Carnegie Mellon Logic Seminar">Carnegie Mellon Logic Seminar</option>
-          <option value="Israeli Logic Talks">Israeli Logic Talks</option>
-          <option value="Bonn Logic Seminar">Bonn Logic Seminar</option>
-          <option value="Michigan Logic Seminar">Michigan Logic Seminar</option>
-          <option value="UC Irvine Set Theory Seminar">UC Irvine Set Theory Seminar</option>
         </select>
       </div>
       <main id="posts" class="posts">
@@ -192,9 +177,10 @@
 
     <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
     <script>
-      const json2post = item => {
+      const json2post = (item, venues) => {
         const post = document.createElement('div');
         post.setAttribute('data-venue', item[1]);
+        venues.add(item[1]);
         if (item[4]) post.setAttribute('data-tags', item[4]);
         const id = `${item[0]}${item[2]}`.hashCode();
         post.id = id;
@@ -289,13 +275,18 @@
         })
         .then(function(csv) {
           let json = Papa.parse(csv, { delimiter: ',' }).data;
-          // console.log(Object.keys(json));
-          // console.log(json, csv);
           json.shift();
-          // console.log(json);
+          const venues = new Set();
           for (let key of Object.keys(json)) {
-            json2post(json[key]);
+            json2post(json[key], venues);
           }
+          const select = document.getElementById('venues');
+          [...venues].sort().forEach( venue => {
+            const option = document.createElement('option');
+            option.setAttribute('value', venue);
+            option.innerHTML = venue;
+            select.appendChild(option);
+          })
           const conferences_wrapper = document.getElementById("conferences");
           const conferences = [...conferences_wrapper.querySelectorAll('a')];
           conferences.sort((a,b) => a.getAttribute('data-startdate') > b.getAttribute('data-startdate'));
@@ -315,7 +306,6 @@
 
       const select = document.getElementById('venues');
       select.addEventListener('change', () => {
-        console.log(select.value);
         document.querySelectorAll('.post').forEach( node => {
           if (select.value === 'All' || select.value === node.getAttribute('data-venue')) node.removeAttribute('hidden')
           else node.setAttribute('hidden','')
