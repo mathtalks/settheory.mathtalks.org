@@ -54,15 +54,16 @@
         content: 'Posted ';
       }
 
-      .post__body {
-        white-space: pre-wrap;
-        font-family: monospace;
-        max-height: 50vh;
-        overflow-y: auto;
-        word-break: break-word;
+      .post__bodywrapper {
         border: 0.5vmin solid lightgray;
         border-radius: 2%;
         padding: 1em;
+      }
+
+      .post__body {
+        white-space: pre-wrap;
+        font-family: monospace;
+        word-break: break-word;
       }
 
       .post__title {
@@ -135,6 +136,16 @@
         content: ' | ';
       }
 
+      .is--overflow--hidden {
+        max-height: 50vh;
+        overflow: hidden;
+      }
+
+      .post__button {
+        width: 100%;
+        margin: 1em auto 0 auto;
+      }
+
       @media (min-width: 500px) {
         .wrapper--main {
           grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr);
@@ -202,10 +213,28 @@
         postdate.innerHTML = item[0];
         post.appendChild(postdate);
 
+        const postbodywrapper = document.createElement('div');
+        postbodywrapper.classList.add('post__bodywrapper');
+        post.appendChild(postbodywrapper);
+
         const postbody = document.createElement('div');
         postbody.classList.add('post__body');
         postbody.innerHTML = item[3];
-        post.appendChild(postbody);
+        postbodywrapper.appendChild(postbody);
+
+        const docheight = document.documentElement.clientHeight;
+        const postheight = postbody.scrollHeight;
+        if (postheight >= 0.5 * docheight) {
+          postbody.classList.add('is--overflow--hidden');
+        const button = document.createElement('button');
+        button.innerHTML = '... show full posting';
+        postbodywrapper.appendChild(button);
+        button.classList.add('post__button');
+        button.addEventListener('click', function () {
+          this.previousElementSibling.classList.remove('is--overflow--hidden');
+          this.setAttribute('hidden', '');
+        })
+      }
 
         if (item[6] !== '') {
           const url = document.createElement('div');
