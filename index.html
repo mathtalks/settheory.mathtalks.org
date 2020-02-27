@@ -56,7 +56,7 @@
 
       .post__bodywrapper {
         border: 0.5vmin solid lightgray;
-        border-radius: 2%;
+        border-radius: 1em;
         padding: 1em;
       }
 
@@ -188,12 +188,12 @@
 
     <script src="https://cdn.jsdelivr.net/gh/mholt/PapaParse/papaparse.min.js"></script>
     <script>
-      const json2post = (item, venues) => {
+      const json2post = async (item, venues) => {
         const post = document.createElement('div');
         post.setAttribute('data-venue', item[1]);
         venues.add(item[1]);
         if (item[4]) post.setAttribute('data-tags', item[4]);
-        const id = `${item[0]}${item[2]}`.hashCode();
+        const id = await sha256(`${item[0]}${item[2]}`);
         post.id = id;
         post.classList.add('post');
         document.getElementById('posts').append(post);
@@ -275,7 +275,7 @@
           if (eventdate >= today) {
             const a = document.createElement('a');
             a.innerHTML = item[2];
-            const id = `${item[0]}${item[2]}`.hashCode();
+            const id = await sha256(`${item[0]}${item[2]}`);
             a.href = '#' + id;
             a.setAttribute('data-startdate', eventdate.toISOString().substring(0,10));
             document.getElementById('conferences').append(a);
@@ -283,18 +283,12 @@
         }
       };
 
-      String.prototype.hashCode = function() {
-        var hash = 0,
-          i,
-          chr;
-        if (this.length === 0) return hash;
-        for (i = 0; i < this.length; i++) {
-          chr = this.charCodeAt(i);
-          hash = (hash << 5) - hash + chr;
-          hash |= 0; // Convert to 32bit integer
-        }
-        return hash;
-      };
+      async function sha256(str) {
+        const buf = await crypto.subtle.digest("SHA-256",
+                                  new TextEncoder("utf-8").encode(str));
+        return Array.prototype.map.call(new Uint8Array(buf),
+                                  x=>(('00'+x.toString(16)).slice(-2))).join('');
+      }
 
       const SOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGjzhmyqaGaXr0VrrgqPN98SN9lsbnqemQ2QDS-ILSce30ZPQb8AnmxiEX0piNaq88e3I6OTu1BOhC/pub?output=csv';
 
@@ -322,16 +316,6 @@
           conferences.forEach(item => conferences_wrapper.appendChild(item));
           ;
         });
-
-      // JSON LINK
-      // fetch('https://spreadsheets.google.com/feeds/list/1v53i7TZ7mDfBfWv5ZtBeGaSj-0De54dTxHPq27sz-Tk/od6/public/full?alt=json')
-      // .then(function(response) {
-      //   return response.json();
-      // })
-      // .then( (j) => console.log(j));
-
-      // source for 2017 items
-      // const OLDSOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3Bc8ejCq-PMUtRwBgxLHDZUOS8nTcm6S_bdo_wojdh1LcsQaU92Ey4KEbX5c_GwltOmD2Dypix4w1/pub?output=csv';
 
       const select = document.getElementById('venues');
       select.addEventListener('change', () => {
