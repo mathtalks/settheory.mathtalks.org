@@ -194,7 +194,7 @@
         venues.add(item[1]);
         if (item[4]) post.setAttribute('data-tags', item[4]);
         const id = await sha256(`${item[0]}${item[2]}`);
-        post.id = id;
+        post.id = 'post' + id;
         post.classList.add('post');
         document.getElementById('posts').append(post);
 
@@ -276,7 +276,7 @@
             const a = document.createElement('a');
             a.innerHTML = item[2];
             const id = await sha256(`${item[0]}${item[2]}`);
-            a.href = '#' + id;
+            a.href = '#' + 'post' + id;
             a.setAttribute('data-startdate', eventdate.toISOString().substring(0,10));
             document.getElementById('conferences').append(a);
           }
