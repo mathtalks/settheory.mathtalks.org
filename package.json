@@ -1,0 +1,25 @@
+{
+  "name": "settheorytalks",
+  "version": "1.0.0",
+  "description": "A website.",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "wget https://docs.google.com/spreadsheets/d/e/2PACX-1vRGjzhmyqaGaXr0VrrgqPN98SN9lsbnqemQ2QDS-ILSce30ZPQb8AnmxiEX0piNaq88e3I6OTu1BOhC/pub?output=csv -O sheet.csv &&",
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathtalks/settheorytalks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mathtalks/settheorytalks/issues"
+  },
+  "homepage": "https://github.com/mathtalks/settheorytalks#readme",
+  "dependencies": {
+    "jsdom": "^16.4.0",
+    "papaparse": "^5.2.0"
+  }
+}
