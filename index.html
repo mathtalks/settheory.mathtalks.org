@@ -3637,7 +3637,7 @@ show that, consistently, J can be countably saturated.
 
 This is a joint work with Saharon Shelah.
 
-</div></div></div><div data-venue="Toronto Set Theory Seminar" data-tags="Clovis Hamel" id="post1f8619f6c7eb5c0da42fb495ac7a7a48" class="post"><h2 class="post__title">Clovis Hamel: An introduction to Cp-theory and Grothendieck spaces</h2><div class="post__seminar">Toronto Set Theory Seminar</div><div class="post__date">8/18/2020</div><div class="post__bodywrapper"><div class="post__body">Place: Fields Institute (Room 210)
+</div></div></div><div data-venue="Toronto Set Theory Seminar" data-tags="Clovis Hamel" id="poste68181728a617c13e4b0c77fbff028d5" class="post"><h2 class="post__title">Clovis Hamel: An introduction to Cp-theory and Grothendieck spaces</h2><div class="post__seminar">Toronto Set Theory Seminar</div><div class="post__date">8/19/2020</div><div class="post__bodywrapper"><div class="post__body">Place: Fields Institute (Room 210)
 Date: October 11, 2019 (13:30-15:00)
 Speaker: Clovis Hamel
 Title: An introduction to Cp-theory and Grothendieck spaces
@@ -6593,14 +6593,19 @@ On 16/04/2020 12:40, David Chodounsky wrote:
       </aside>
     </div>
     <script>
-          const select = document.getElementById('venues');
-          select.addEventListener('change', () => {
-          document.querySelectorAll('.post').forEach( node => {
-            if (select.value === 'All' || select.value === node.getAttribute('data-venue')) node.removeAttribute('hidden')
-            else node.setAttribute('hidden','')
-          })});
+      const select = document.getElementById('venues');
+      select.addEventListener('change', () => {
+        document.querySelectorAll('.post').forEach((node) => {
+          if (
+            select.value === 'All' ||
+            select.value === node.getAttribute('data-venue')
+          )
+            node.removeAttribute('hidden');
+          else node.setAttribute('hidden', '');
+        });
+      });
 
-       document.querySelectorAll('.post__body').forEach( postbody => {
+      document.querySelectorAll('.post__body').forEach((postbody) => {
         const docheight = document.documentElement.clientHeight;
         const postheight = postbody.scrollHeight;
         const postbodywrapper = postbody.parentNode;
@@ -6611,7 +6616,9 @@ On 16/04/2020 12:40, David Chodounsky wrote:
           postbodywrapper.appendChild(button);
           button.classList.add('post__button');
           button.addEventListener('click', function () {
-            this.previousElementSibling.classList.remove('is--overflow--hidden');
+            this.previousElementSibling.classList.remove(
+              'is--overflow--hidden'
+            );
             this.setAttribute('hidden', '');
           });
         }
