@@ -894,14 +894,19 @@
       </aside>
     </div>
     <script>
-          const select = document.getElementById('venues');
-          select.addEventListener('change', () => {
-          document.querySelectorAll('.post').forEach( node => {
-            if (select.value === 'All' || select.value === node.getAttribute('data-venue')) node.removeAttribute('hidden')
-            else node.setAttribute('hidden','')
-          })});
+      const select = document.getElementById('venues');
+      select.addEventListener('change', () => {
+        document.querySelectorAll('.post').forEach((node) => {
+          if (
+            select.value === 'All' ||
+            select.value === node.getAttribute('data-venue')
+          )
+            node.removeAttribute('hidden');
+          else node.setAttribute('hidden', '');
+        });
+      });
 
-       document.querySelectorAll('.post__body').forEach( postbody => {
+      document.querySelectorAll('.post__body').forEach((postbody) => {
         const docheight = document.documentElement.clientHeight;
         const postheight = postbody.scrollHeight;
         const postbodywrapper = postbody.parentNode;
@@ -912,7 +917,9 @@
           postbodywrapper.appendChild(button);
           button.classList.add('post__button');
           button.addEventListener('click', function () {
-            this.previousElementSibling.classList.remove('is--overflow--hidden');
+            this.previousElementSibling.classList.remove(
+              'is--overflow--hidden'
+            );
             this.setAttribute('hidden', '');
           });
         }
