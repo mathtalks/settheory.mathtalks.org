@@ -6600,22 +6600,22 @@ On 16/04/2020 12:40, David Chodounsky wrote:
             else node.setAttribute('hidden','')
           })});
 
-    //   document.querySelectorAll('post__body').forEach( postbody => {
-    //       const docheight = document.documentElement.clientHeight;
-    //     const postheight = postbody.scrollHeight;
-    //     const postwrapper = postbody.parentNode;
-    //     if (postheight >= 0.5 * docheight) {
-    //       postbody.classList.add('is--overflow--hidden');
-    //       const button = document.createElement('button');
-    //       button.innerHTML = '... show full posting';
-    //       postbodywrapper.appendChild(button);
-    //       button.classList.add('post__button');
-    //       button.addEventListener('click', function () {
-    //         this.previousElementSibling.classList.remove('is--overflow--hidden');
-    //         this.setAttribute('hidden', '');
-    //       });
-    //   }
-    // });
+       document.querySelectorAll('.post__body').forEach( postbody => {
+        const docheight = document.documentElement.clientHeight;
+        const postheight = postbody.scrollHeight;
+        const postbodywrapper = postbody.parentNode;
+        if (postheight >= 0.5 * docheight) {
+          postbody.classList.add('is--overflow--hidden');
+          const button = document.createElement('button');
+          button.innerHTML = '... show full posting';
+          postbodywrapper.appendChild(button);
+          button.classList.add('post__button');
+          button.addEventListener('click', function () {
+            this.previousElementSibling.classList.remove('is--overflow--hidden');
+            this.setAttribute('hidden', '');
+          });
+        }
+      });
     </script>
   
 
