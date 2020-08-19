@@ -2,7 +2,7 @@ name: settheorytalks cronjob
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '17 */12 * * *'
 
 jobs:
   build:
@@ -22,5 +22,5 @@ jobs:
           echo run build
           npm run build
           git add index.html
-          git commit -m "generated"
+          git commit -m "chore: cron job"
           git push
