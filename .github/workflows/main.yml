@@ -22,5 +22,5 @@ jobs:
           echo run build
           npm run build
           git add index.html
-          git commit -m "chore: cron job"
+          git commit -m "chore: cron job" || true
           git push
