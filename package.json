@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/mathtalks/settheorytalks#readme",
   "dependencies": {
-    "jsdom": "^16.4.0",
+    "jsdom": "^16.5.0",
     "papaparse": "^5.2.0"
   }
 }
